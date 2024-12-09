@@ -10,5 +10,5 @@ The script can be adopted to gather any devices data available in a site.
 
 ## Requirements
 
-- Authentication credentials, either username and password or token having rights to list sites in an organization and get devices statistics from each site in an org
-- Organization UUID
+- Authentication credentials, either _username and password_ or _token_ having rights to list sites in an organization and get devices statistics from each site in an org
+- _Organization UUID_
