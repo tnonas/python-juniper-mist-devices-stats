@@ -4,13 +4,14 @@ The script searches for all sites created in the provided Juniper Mist Organizat
 - Site name
 - Device name
 - Device type (ap, switch, gateway)
-- Device version (software)
+- Device version (software version)
 
 The script can be adopted to gather any devices data available in a site.
 
 ## Requirements
 
 - Authentication credentials, either _username and password_ or _token_ having rights to list sites in an organization and get devices statistics from each site in an org
+  - Note: 2FA/MFA authentication for username and password is not supported
 - _Organization UUID_
 
 ## Usage
@@ -19,7 +20,7 @@ The script can be adopted to gather any devices data available in a site.
 - Start _get_devices_stats.py_ script
 - Choose Juniper Mist cloud containing your Organization
 - Provide authentication data, username and password or token
-- Provide Organization ID (UUID) which will searched for devices data in each site configured in it
+- Provide Organization ID (UUID) which will be searched for devices data in each site configured in it
 - The results are written to CSV file in the _output_ directory
 
 ## Example
