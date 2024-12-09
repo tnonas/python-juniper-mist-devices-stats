@@ -27,7 +27,7 @@ The script can be adopted to gather any devices data available in a site.
 
 Based on Juniper Live Demo Organization and changed (non-existing) Organization ID.
 
-```
+```console
 ./get_devices_stats.py
 
 (1) Mist Global 01
