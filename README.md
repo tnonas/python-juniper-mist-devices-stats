@@ -11,7 +11,7 @@ The script can be adopted to gather any devices data available in a site.
 ## Requirements
 
 - Authentication credentials, either _username and password_ or _token_ having rights to list sites in an organization and get devices statistics from each site in an org
-  - Note: 2FA/MFA authentication for username and password is not supported
+  - **Note**: 2FA/MFA authentication for username and password is not supported
 - _Organization UUID_
 
 ## Usage
@@ -22,6 +22,7 @@ The script can be adopted to gather any devices data available in a site.
 - Provide authentication data, username and password or token
 - Provide Organization ID (UUID) which will be searched for devices data in each site configured in it
 - The results are written to CSV file in the _output_ directory
+  - **Note**: If the _output_ directory does not exist it needs to be created prior to running the script.
 
 ## Example
 
