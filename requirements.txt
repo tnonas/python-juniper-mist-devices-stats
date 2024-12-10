@@ -2,7 +2,10 @@ certifi==2024.8.30
 charset-normalizer==3.4.0
 docopt==0.6.2
 idna==3.10
+mypy==1.13.0
+mypy-extensions==1.0.0
 pipreqs==0.4.13
 requests==2.32.3
+typing_extensions==4.12.2
 urllib3==2.2.3
 yarg==0.1.10
