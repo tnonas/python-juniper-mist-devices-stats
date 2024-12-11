@@ -1,33 +1,12 @@
 #!/usr/bin/env python3
 
+from juniper_mist_auth import get_api_url, get_auth_data, get_user_pass, get_token
 import requests, json, csv
-from getpass import getpass
 
 # ------------------------------------------------
 # Generate Mist Clouds menu used to choose API url
 # ------------------------------------------------
-mist_clouds: dict = {
-    'Mist Global 01': {'position': '1', 'url': 'api.mist.com'},
-    'Mist Global 02': {'position': '2', 'url': 'api.gc1.mist.com'},
-    'Mist Global 03': {'position': '3', 'url': 'api.ac2.mist.com'},
-    'Mist Global 04': {'position': '4', 'url': 'api.gc2.mist.com'},
-    'Mist EMEA 01': {'position': '5', 'url': 'api.eu.mist.com'},
-    'Mist EMEA 02': {'position': '6', 'url': 'api.gc3.mist.com'},
-    'Mist EMEA 03': {'position': '7', 'url': 'api.ac6.mist.com'},
-    'Mist APAC 01': {'position': '8', 'url': 'api.ac5.mist.com'}
-}
-
-api_choice: str = '0'  # Define initial choice of menu item outside available options
-api_url: str = ''  # Define initial API URL to a blank string
-
-while api_choice not in '12345678':  # Display Mist Clouds menu until the correct number is selected
-    api_choice = input(
-        '(1) Mist Global 01\n(2) Mist Global 02\n(3) Mist Global 03\n(4) Mist Global 04\n(5) Mist EMEA 01\n(6) Mist EMEA 02\n(7) Mist EMEA 03\n(8) Mist APAC 01\nProvide Mist Cloud number: ')
-
-for k, v in mist_clouds.items():  # Record API URL based on the menu number chosen
-    if v['position'] == api_choice:
-        api_url = v['url']
-        print(f'\n---> API target set to {k} ({api_url})\n')
+api_url: str = get_api_url()
 
 # ---------------------------------------------------
 # Choose Mist authentication type and get credentials
@@ -39,13 +18,15 @@ while auth_choice not in 'TtUu':  # Display Authentication menu until the correc
     auth_choice = str(input("Do you want to use (T)oken or (U)sername / Password for Mist API authentication? "))
 
 if auth_choice in 'Uu':  # Get username / pass credentials and Org ID
-    username: str = str(input("\nProvide your Username: "))
-    password: str = str(getpass("Provide your Password: "))
-    org_id: str = str(input("Provide your Organization ID: "))
+    username, password = get_user_pass()
 
 else:  # Get token and Org ID
-    token: str = str(getpass("\nProvide your Token: "))
-    org_id: str = str(input("Provide your Organization ID: "))
+    token: str = str(get_token())
+
+# -------------------
+# Get Organization ID
+# -------------------
+org_id: str = str(input("Provide your Organization ID: "))
 
 # -----------------------
 # Set API request details
@@ -66,7 +47,7 @@ if auth_choice in ['U', 'u']:
     }
 
     response: object = requests.request('GET', r_url, headers=r_headers, params=params, data=json.dumps(r_payload),
-                                auth=(username, password))
+                                        auth=(username, password))
 
 else:
     print('\n--> Using Token authentication...')
@@ -133,7 +114,7 @@ else:
 
     # Write results to CSV file
     fieldnames: list = ['Site name', 'Device name', 'Device type',
-                  'Device version']  # Define which dict keys will be written to CSV
+                        'Device version']  # Define which dict keys will be written to CSV
 
     with open('output/devices_data.csv', 'w', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
